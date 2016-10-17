@@ -1,0 +1,32 @@
+* {
+  font-family: sans-serif;
+  text-align: center;
+}
+
+.snake {
+  margin: auto;
+  padding: 0;
+  border: 8px solid black;
+  width: 600px;
+  height: 600px;
+}
+
+ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+li {
+  float: left;
+  width: 30px;
+  height: 30px;
+}
+
+.apple {
+  background-color: red;
+}
+
+.snake-parts {
+  background-color: green;
+}
