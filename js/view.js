@@ -30,6 +30,11 @@ class View {
 
     let apple = this.board.apple;
     $(`.snake ul:nth-child(${apple[0]+1}) li:nth-child(${apple[1]+1})`).addClass('apple');
+
+    let points = this.board.snake.applesEaten;
+    let streak = this.board.snake.streak;
+    $('.score').html(points);
+    $('.streak').html(streak);
   }
 
   bindEvents() {

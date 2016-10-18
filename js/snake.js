@@ -4,6 +4,9 @@ class Snake {
     this.segments = [pos];
     this.applesEaten = 0;
     this.toGrow = 0;
+    this.movesToApple = 0;
+    this.streak = 0;
+    this.lastApple = new Date();
   }
 
   randomDirection() {
@@ -12,7 +15,8 @@ class Snake {
   }
 
   move() {
-    let last = this.segments[this.segments.length - 1]
+    this.movesToApple++;
+    let last = this.segments[this.segments.length - 1];
 
     if( this.toGrow > 0 ) {
       this.toGrow--;
@@ -44,7 +48,17 @@ class Snake {
         return true;
       }
     }
+    return false;
+  }
 
+  partOfSnake(pos) {
+    let segments = this.segments;
+    for(let i = 0; i < segments.length; i++) {
+      let segment = segments[i];
+      if(segment[0] === pos[0] && segment[1] === pos[1]) {
+        return true;
+      }
+    }
     return false;
   }
 }
