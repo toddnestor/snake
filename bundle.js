@@ -66,11 +66,11 @@
 	    $('.activity h2:last').fadeOut("slow", function(){
 	      $(this).remove();
 	    });
-	  }, 10000)
+	  }, 10000);
 
 	  setInterval(function(){
 	    let now = new Date();
-	    if(now - board.snake.lastApple > 8000) {
+	    if(now - board.snake.lastApple > 10000) {
 	      board.snake.streak = 0;
 	    }
 	  }, 500)
