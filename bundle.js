@@ -94,7 +94,7 @@
 /***/ function(module, exports, __webpack_require__) {
 
 	const Snake = __webpack_require__(2);
-	const Node = __webpack_require__(5);
+	const Node = __webpack_require__(3);
 
 	class Board {
 	  constructor(size = 20) {
@@ -245,6 +245,7 @@
 	    this.applesEaten = 0;
 	    this.toGrow = 0;
 	    this.movesToApple = 0;
+	    this.movesInDirection = 0;
 	    this.streak = 0;
 	    this.lastApple = new Date();
 	  }
@@ -256,6 +257,7 @@
 
 	  move() {
 	    this.movesToApple++;
+	    this.movesInDirection++;
 	    let last = this.segments[this.segments.length - 1];
 
 	    if( this.toGrow > 0 ) {
@@ -270,8 +272,9 @@
 	  }
 
 	  turn(dir) {
-	    if(!(dir === Snake.OPPOSITES[this.direction])) {
+	    if(this.movesInDirection > 0 && !(dir === Snake.OPPOSITES[this.direction])) {
 	      this.direction = dir;
+	      this.movesInDirection = 0;
 	    }
 	  }
 
@@ -310,7 +313,29 @@
 
 
 /***/ },
-/* 3 */,
+/* 3 */
+/***/ function(module, exports) {
+
+	class Node {
+	  constructor( value, parent = null) {
+	    this.value = value;
+	    this.parent = parent;
+	  }
+	  pathLength() {
+	    let length = 0
+	    let node = this;
+	    while (node.parent) {
+	      length++;
+	      node = node.parent;
+	    }
+	    return length;
+	  }
+	}
+
+	module.exports = Node;
+
+
+/***/ },
 /* 4 */
 /***/ function(module, exports) {
 
@@ -377,29 +402,6 @@
 	}
 
 	module.exports = View;
-
-
-/***/ },
-/* 5 */
-/***/ function(module, exports) {
-
-	class Node {
-	  constructor( value, parent = null) {
-	    this.value = value;
-	    this.parent = parent;
-	  }
-	  pathLength() {
-	    let length = 0
-	    let node = this;
-	    while (node.parent) {
-	      length++;
-	      node = node.parent;
-	    }
-	    return length;
-	  }
-	}
-
-	module.exports = Node;
 
 
 /***/ }

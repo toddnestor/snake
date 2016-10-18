@@ -5,6 +5,7 @@ class Snake {
     this.applesEaten = 0;
     this.toGrow = 0;
     this.movesToApple = 0;
+    this.movesInDirection = 0;
     this.streak = 0;
     this.lastApple = new Date();
   }
@@ -16,6 +17,7 @@ class Snake {
 
   move() {
     this.movesToApple++;
+    this.movesInDirection++;
     let last = this.segments[this.segments.length - 1];
 
     if( this.toGrow > 0 ) {
@@ -30,8 +32,9 @@ class Snake {
   }
 
   turn(dir) {
-    if(!(dir === Snake.OPPOSITES[this.direction])) {
+    if(this.movesInDirection > 0 && !(dir === Snake.OPPOSITES[this.direction])) {
       this.direction = dir;
+      this.movesInDirection = 0;
     }
   }
 
