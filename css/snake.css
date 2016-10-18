@@ -3,6 +3,12 @@
   text-align: center;
 }
 
+h1 {
+  font-family: 'Roboto Condensed';
+  font-weight: bold;
+  font-size: 60px;
+
+}
 .snake {
   margin: auto;
   padding: 0;
@@ -43,6 +49,11 @@ li {
 }
 
 .one_third {
+  padding-top: 200px;
   width: 33.33333%;
   float: left;
+}
+
+.lost {
+  display: none;
 }

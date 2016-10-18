@@ -7,6 +7,7 @@ class View {
   }
 
   setupSnake() {
+    this.el.html('');
     let grid = this.board.grid;
     for(let i = 0; i < grid.length; i++) {
       let ul = $('<ul>');

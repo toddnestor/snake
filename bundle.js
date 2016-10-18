@@ -48,32 +48,44 @@
 	const View = __webpack_require__(4);
 
 	$( () => {
-	  let board = new Board();
-	  let view = new View(board, $('.snake'));
+	  function runGame() {
+	    let board = new Board();
+	    let view = new View(board, $('.snake'));
 
-	  let timer = setInterval(function(){
-	    board.step();
+	    let snakeEater = setInterval(function(){
+	      let now = new Date();
+	      if(now - board.snake.lastApple > 10000) {
+	        board.snake.streak = 0;
+	      }
+	    }, 500)
 
-	    view.render();
+	    let timer = setInterval(function(){
+	      board.step();
 
-	    if(board.outOfBounds() || board.snake.touchingSelf()) {
-	      alert('You lost!');
-	      clearInterval(timer);
-	    }
-	  }, 100);
+	      view.render();
+
+	      if(board.outOfBounds() || board.snake.touchingSelf()) {
+	        $('.lost').show();
+	        clearInterval(timer);
+	        clearInterval(snakeEater);
+	        $('body').keydown(function(e) {
+	          $('body').off();
+	          if(e.keyCode === 13) {
+	            $('.lost').hide();
+	            runGame();
+	          }
+	        });
+	      }
+	    }, 100);
+	  }
+
+	  runGame();
 
 	  setInterval(function(){
 	    $('.activity h2:last').fadeOut("slow", function(){
 	      $(this).remove();
 	    });
 	  }, 10000);
-
-	  setInterval(function(){
-	    let now = new Date();
-	    if(now - board.snake.lastApple > 10000) {
-	      board.snake.streak = 0;
-	    }
-	  }, 500)
 	});
 
 
@@ -311,6 +323,7 @@
 	  }
 
 	  setupSnake() {
+	    this.el.html('');
 	    let grid = this.board.grid;
 	    for(let i = 0; i < grid.length; i++) {
 	      let ul = $('<ul>');
